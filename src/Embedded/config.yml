@@ -1,0 +1,11 @@
+﻿# The version of the config. If your config is outdated you'll get a warning.
+# Breaking changes may happen, please refer to the changelog for more information.
+version: 0
+
+# Possible values: { critical, error, warning, info, verbose, debug }
+logging: info
+
+# This part is for the discord integration.
+discord:
+  # This refers to the token from your bot. It's mandatory.
+  token: <insert token here>
