@@ -1,4 +1,4 @@
-How To Install
+## How To Install
 
 1. Install Firefox
 2. Download [geckdodriver](https://github.com/mozilla/geckodriver/releases)
