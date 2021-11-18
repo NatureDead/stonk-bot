@@ -3,9 +3,13 @@
 version: 0
 
 # Possible values: { critical, error, warning, info, verbose, debug }
-logging: info
+logging_level: info
+
+# Decide which browser engine to use. Currently only Firefox is supported.
+browser_engine: firefox
 
 # This part is for the discord integration.
-discord:
-  # This refers to the token from your bot. It's mandatory.
-  token: <insert token here>
+bot_token: <insert bot token here>
+
+# The address of the watched coin.
+coin_address: <insert coin address here>

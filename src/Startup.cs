@@ -54,8 +54,8 @@ namespace StonkBot
                 _discordSocketClient.Log += _logService.LogAsync;
                 _commandService.Log += _logService.LogAsync;
 
-                var discordToken = _configurationService.ConfigFile.DiscordToken;
-                await _discordSocketClient.LoginAsync(TokenType.Bot, discordToken).ConfigureAwait(false);
+                var botToken = _configurationService.ConfigFile.BotToken;
+                await _discordSocketClient.LoginAsync(TokenType.Bot, botToken).ConfigureAwait(false);
                 await _discordSocketClient.StartAsync().ConfigureAwait(false);
 
                 await RegisterCommands().ConfigureAwait(false);

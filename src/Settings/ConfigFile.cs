@@ -1,5 +1,6 @@
-﻿using System;
-using Discord;
+﻿using Discord;
+using StonkBot.Services;
+using System;
 
 namespace StonkBot.Settings
 {
@@ -9,25 +10,40 @@ namespace StonkBot.Settings
         protected override string ResourceName => "config.yml";
 
         public LogSeverity LogSeverity { get; private set; }
-        public string DiscordToken { get; private set; }
+        public BrowserEngineType BrowserEngineType { get; private set; }
+        public string BotToken { get; private set; }
+        public string CoinAddress { get; private set; }
 
         protected override void OnChanged()
         {
             base.OnChanged();
 
-            LogSeverity = GetLogSeverity();
-            DiscordToken = GetDiscordToken();
+            LogSeverity = GetLoggingSeverity();
+            BrowserEngineType = GetBrowserEngineType();
+            BotToken = GetBotToken();
+            CoinAddress = GetCoinAddress();
         }
 
-        public LogSeverity GetLogSeverity()
+        public LogSeverity GetLoggingSeverity()
         {
-            var loggingValue = Configuration["logging"];
-            return (LogSeverity)Enum.Parse(typeof(LogSeverity), loggingValue, true);
+            var loggingLevelValue = Configuration["logging_level"];
+            return (LogSeverity)Enum.Parse(typeof(LogSeverity), loggingLevelValue, true);
         }
 
-        public string GetDiscordToken()
+        private BrowserEngineType GetBrowserEngineType()
         {
-            return Configuration["discord:token"];
+            var browserEngineValue = Configuration["browser_engine"];
+            return (BrowserEngineType)Enum.Parse(typeof(BrowserEngineType), browserEngineValue, true);
+        }
+
+        public string GetBotToken()
+        {
+            return Configuration["bot_token"];
+        }
+
+        private string GetCoinAddress()
+        {
+            return Configuration["coin_address"];
         }
     }
 }
