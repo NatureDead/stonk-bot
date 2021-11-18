@@ -59,13 +59,13 @@ namespace StonkBot
                 await _discordSocketClient.StartAsync().ConfigureAwait(false);
 
                 await RegisterCommands().ConfigureAwait(false);
+
+                await Task.Delay(-1).ConfigureAwait(false);
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.ToString());
             }
-
-            await Task.Delay(-1).ConfigureAwait(false);
         }
 
         private async Task RegisterCommands()
