@@ -13,6 +13,9 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Embedded\loading.gif" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.4.0" />
@@ -27,5 +30,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Embedded\config.yml" />
+    <EmbeddedResource Include="Embedded\loading.gif" />
   </ItemGroup>
 </Project>

@@ -29,7 +29,7 @@ namespace StonkBot.Settings
         private void Load(string resourceName)
         {
             var basePath = Reflections.GetBasePath();
-            CheckForFile(basePath, resourceName);
+            Resources.CreateResource(basePath, resourceName);
 
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(basePath)
@@ -41,17 +41,6 @@ namespace StonkBot.Settings
             reloadToken.RegisterChangeCallback(x => OnChangedInternal(), null);
 
             OnChanged();
-        }
-
-        private void CheckForFile(string basePath, string resourceName)
-        {
-            var path = Path.Combine(basePath, resourceName);
-            if (File.Exists(path)) return;
-
-            using var stream = Reflections.GetManifestResourceStream(resourceName);
-            using var fileStream = new FileStream(path, FileMode.CreateNew);
-
-            stream.CopyTo(fileStream);
         }
 
         private void OnChangedInternal()

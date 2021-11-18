@@ -1,6 +1,7 @@
 ﻿using Discord.Commands;
 using OpenQA.Selenium;
 using StonkBot.Services;
+using StonkBot.Settings;
 using System;
 using System.IO;
 using System.Text;
@@ -14,14 +15,16 @@ namespace StonkBot.Modules
 
         public CoinModule(ConfigurationService configurationService)
         {
-            _configurationService = configurationService ?? 
+            _configurationService = configurationService ??
                 throw new ArgumentNullException(nameof(configurationService));
         }
 
-        [Command("price")]
+        [Command("price", RunMode = RunMode.Async)]
         public async Task GetPriceAsync()
         {
-            var userMessage = await Context.Channel.SendFileAsync("loading.gif").ConfigureAwait(false);
+            var loadingImage = "loading.gif";
+            Resources.CreateResource(Reflections.GetBasePath(), loadingImage);
+            var userMessage = await Context.Channel.SendFileAsync(loadingImage).ConfigureAwait(false);
 
             var browserEngineType = _configurationService.ConfigFile.BrowserEngineType;
             var coinAddress = _configurationService.ConfigFile.CoinAddress;
