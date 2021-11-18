@@ -1,6 +1,6 @@
 ## How To Install
 
-1. Install Firefox
+1. Prerequisite: [Firefox](https://www.mozilla.org/en-US/firefox/new/) & [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
 2. Download [geckdodriver](https://github.com/mozilla/geckodriver/releases)
 3. Place the geckodriver.exe next to the StonkBot.exe or the path into PATH env
 4. Setup your Discord bot (name it whatever you want)
