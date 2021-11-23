@@ -8,6 +8,9 @@
     - Read Message History
     - View Channels
     - Attach Files
-5. Copy the token into the config.yml (if there is none start the StonkBot once)
-6. Copy the coin address into config.yml
-7. Start the StonkBot.exe
+5. Edit the 'config.yml' (if there is none start the StonkBot once)
+    - Token chain
+    - Token address
+    - Discord bot token
+    - Dex.Guru API key
+6. Start the StonkBot.exe
