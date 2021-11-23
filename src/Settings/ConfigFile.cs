@@ -11,8 +11,11 @@ namespace StonkBot.Settings
 
         public LogSeverity LogSeverity { get; private set; }
         public BrowserEngineType BrowserEngineType { get; private set; }
-        public string BotToken { get; private set; }
-        public string CoinAddress { get; private set; }
+        public string TokenChain { get; private set; }
+        public string TokenAddress { get; private set; }
+        public string DiscordBotToken { get; private set; }
+        public string DexGuruApiKey { get; private set; }
+        public int PageDelay {  get; private set; }
 
         protected override void OnChanged()
         {
@@ -20,8 +23,11 @@ namespace StonkBot.Settings
 
             LogSeverity = GetLoggingSeverity();
             BrowserEngineType = GetBrowserEngineType();
-            BotToken = GetBotToken();
-            CoinAddress = GetCoinAddress();
+            TokenChain = GetTokenChain();
+            TokenAddress = GetTokenAddress();
+            DiscordBotToken = GetDiscordBotToken();
+            DexGuruApiKey = GetDexGuruApiKey();
+            PageDelay = GetPageDelay();
         }
 
         public LogSeverity GetLoggingSeverity()
@@ -36,14 +42,30 @@ namespace StonkBot.Settings
             return (BrowserEngineType)Enum.Parse(typeof(BrowserEngineType), browserEngineValue, true);
         }
 
-        public string GetBotToken()
+        private string GetTokenChain()
         {
-            return Configuration["bot_token"];
+            return Configuration["token:chain"];
         }
 
-        private string GetCoinAddress()
+        private string GetTokenAddress()
         {
-            return Configuration["coin_address"];
+            return Configuration["token:address"];
+        }
+
+        public string GetDiscordBotToken()
+        {
+            return Configuration["discord:bot_token"];
+        }
+
+        public string GetDexGuruApiKey()
+        {
+            return Configuration["dex_guru_api_key"];
+        }
+
+        private int GetPageDelay()
+        {
+            var pageDelayValue = Configuration["page_delay"];
+            return int.Parse(pageDelayValue);
         }
     }
 }

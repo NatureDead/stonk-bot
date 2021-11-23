@@ -8,16 +8,24 @@ namespace StonkBot.Services
     {
         public Task LogAsync(LogMessage logMessage)
         {
-            Log(logMessage.Severity, logMessage.Message);
+            if (logMessage.Exception == null)
+                Log(logMessage.Severity, logMessage.Message);
+            else
+                Log(logMessage.Exception);
+
             return Task.CompletedTask;
         }
 
         public void Log(Exception exception)
         {
-            Log(LogSeverity.Error, exception.Message);
+            while (exception != null)
+            {
+                Log(LogSeverity.Error, exception.Message + Environment.NewLine + exception.StackTrace);
+                exception = exception.InnerException;
+            }
         }
 
-        private void Log(LogSeverity logSeverity, string message)
+        public void Log(LogSeverity logSeverity, string message)
         {
             Console.WriteLine($"[{DateTime.Now:T}] [{logSeverity}] {message}");
         }

@@ -9,5 +9,7 @@ namespace StonkBot.Services
         Task LogAsync(LogMessage logMessage);
 
         void Log(Exception exception);
+
+        void Log(LogSeverity logSeverity, string message);
     }
 }

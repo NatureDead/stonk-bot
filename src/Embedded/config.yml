@@ -8,8 +8,19 @@ logging_level: info
 # Decide which browser engine to use. Currently only Firefox is supported.
 browser_engine: firefox
 
-# This part is for the discord integration.
-bot_token: <insert bot token here>
+# These infos are required for web requests.
+token:
+  # Supported: avalanche, eth, fantom, polygon, bsc
+  chain: <insert chain here>
+  # The address of the token
+  address: <insert token address here>
 
-# The address of the watched coin.
-coin_address: <insert coin address here>
+# This is part of the discord integration.
+discord:
+  bot_token: <insert discord bot token here>
+
+# This is part of the dex.guru integration. 
+dex_guru_api_key: <insert dex.guru api key here>
+
+# The delay to wait for the pages to load (in seconds).
+page_delay: 5
