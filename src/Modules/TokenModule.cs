@@ -37,17 +37,17 @@ namespace StonkBot.Modules
             var pageDelay = _configurationService.ConfigFile.PageDelay;
 
             var graphFileName = "";
+            var poocoinWebDriver = new PoocoinWebDriver(browserEngineType);
             var dexGuruRestApi = new DexGuruRestApi(_logService, dexGuruApiKey);
             var binanceRestApi = new BinanceRestApi(_logService);
-            var poocoinWebDriver = new PoocoinWebDriver(browserEngineType);
 
             try
             {
+                var loadTask = poocoinWebDriver.LoadAsync(tokenAddress, TimeSpan.FromSeconds(pageDelay));
                 var getTokenTask = dexGuruRestApi.GetTokenAsync(tokenChain, tokenAddress);
                 var getTickerPriceTask = binanceRestApi.GetTickerPriceAsync("BNBBUSD");
-                var loadTask = poocoinWebDriver.LoadAsync(tokenAddress, TimeSpan.FromSeconds(pageDelay));
 
-                await Task.WhenAll(getTokenTask, getTickerPriceTask, loadTask).ConfigureAwait(false);
+                await Task.WhenAll(loadTask, getTokenTask, getTickerPriceTask).ConfigureAwait(false);
 
                 var token = getTokenTask.Result;
                 var tickerPrice = getTickerPriceTask.Result;

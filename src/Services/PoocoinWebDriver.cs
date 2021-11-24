@@ -67,7 +67,7 @@ namespace StonkBot.Services
 
         private static string GetTotalSupply(string fullText)
         {
-            var startText = "Total Supply:\r\n";
+            var startText = $"Total Supply:{Environment.NewLine}";
             var startIndex = fullText.IndexOf(startText, StringComparison.OrdinalIgnoreCase);
             var endIndex = fullText.IndexOf("Market Cap:", StringComparison.OrdinalIgnoreCase);
 
@@ -92,7 +92,7 @@ namespace StonkBot.Services
 
         private static string GetLpHoldings(string fullText)
         {
-            var startText = "LP Holdings:\r\n";
+            var startText = $"LP Holdings:{Environment.NewLine}";
             var startIndex = fullText.IndexOf(startText, StringComparison.OrdinalIgnoreCase);
             var endIndex = fullText.IndexOf("| Chart", StringComparison.OrdinalIgnoreCase);
 
