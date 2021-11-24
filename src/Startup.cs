@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using Discord;
@@ -21,6 +22,9 @@ namespace StonkBot
         public Startup()
         {
             _serviceProvider = ConfigureServices();
+
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
         }
 
         private ServiceProvider ConfigureServices()

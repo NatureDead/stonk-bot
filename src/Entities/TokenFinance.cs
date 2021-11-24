@@ -7,6 +7,6 @@ namespace StonkBot.Entities
         public string Address { get; set; }
 
         [JsonProperty("price_usd")]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

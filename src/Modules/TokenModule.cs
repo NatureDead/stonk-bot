@@ -38,21 +38,30 @@ namespace StonkBot.Modules
 
             var graphFileName = "";
             var dexGuruRestApi = new DexGuruRestApi(_logService, dexGuruApiKey);
+            var binanceRestApi = new BinanceRestApi(_logService);
             var poocoinWebDriver = new PoocoinWebDriver(browserEngineType);
 
             try
             {
-                var graphFileNameTask = poocoinWebDriver.GetGraphFileName(tokenAddress, TimeSpan.FromSeconds(pageDelay));
                 var getTokenTask = dexGuruRestApi.GetTokenAsync(tokenChain, tokenAddress);
+                var getTickerPriceTask = binanceRestApi.GetTickerPriceAsync("BNBBUSD");
+                var loadTask = poocoinWebDriver.LoadAsync(tokenAddress, TimeSpan.FromSeconds(pageDelay));
 
-                await Task.WhenAll(graphFileNameTask, getTokenTask).ConfigureAwait(false);
+                await Task.WhenAll(getTokenTask, getTickerPriceTask, loadTask).ConfigureAwait(false);
 
-                graphFileName = graphFileNameTask.Result;
                 var token = getTokenTask.Result;
+                var tickerPrice = getTickerPriceTask.Result;
+
+                graphFileName = poocoinWebDriver.GetGraphFileName();
+                var tokenData = poocoinWebDriver.GetTokenData();
 
                 var stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine($"Token: {token.Inventory.Name} ({token.Inventory.Symbol})");
                 stringBuilder.AppendLine($"Price: ${token.Finance.Price}");
+                stringBuilder.AppendLine($"Total Supply: {tokenData.TotalSupply}");
+                stringBuilder.AppendLine($"Market Cap: {tokenData.MarketCap}");
+                stringBuilder.AppendLine($"BNB Price: ${tickerPrice.Price:0.00}");
+                stringBuilder.AppendLine($"LP Holdings: {tokenData.LpHoldings}");
 
                 await Context.Channel.DeleteMessageAsync(loadingMessage).ConfigureAwait(false);
                 await Context.Channel.SendFileAsync(graphFileName, stringBuilder.ToString()).ConfigureAwait(false);
